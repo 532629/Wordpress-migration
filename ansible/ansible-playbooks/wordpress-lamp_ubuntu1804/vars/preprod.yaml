@@ -1,0 +1,15 @@
+---
+#System Settings
+php_modules: [ 'php-curl', 'php-gd', 'php-mbstring', 'php-xml', 'php-xmlrpc', 'php-soap', 'php-intl', 'php-zip','php-bcmath','php-imagick','php-json','php-mysql' ]
+
+#MySQL Settings
+mysql_root_password: "root"
+mysql_db: "wordpress"
+mysql_user: "gupta"
+mysql_password: "gupta"
+
+#HTTP Settings
+http_host: "wp-preprod.uksouth.cloudapp.azure.com"
+http_conf: "wp-preprod.uksouth.cloudapp.azure.com.conf"
+http_port: "80"
+https_port: "443"
