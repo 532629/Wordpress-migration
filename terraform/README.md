@@ -1,9 +1,3 @@
--# DO Community - Ansible Playbooks
-
-
-
-
-
 ## Terraform file  Structure
 
 
@@ -35,29 +29,22 @@
 - `backend/`: directory containing key,storage account details to store the terraform tfstate file.
 - `env_vars/`: directory containing the environment related variable.
 
-##Running this terraform  will perform the following actions:
+## Running this terraform  will create the following Azure cloud resources:
 
+```
 - 1. Resource Group, 
 - 2. VNet, 
 - 3. Subnet,
 - 4. Network Interface
 - 5. Public IP, 
 - 6. Network Security Group,
-- 7.  Virtual Machine
+- 7. Virtual Machine
 - 8. Public and Private key
 
 ```
 
-Terraform Commands-
-terraform init
-terraform validate
-
-terraform plan -out wp-preprod.apply.tfplan
-terraform apply "wp-preprod.apply.tfplan"
-
-terraform plan -destroy -out wp-preprod.destroy.tfplan
-terraform apply "wp-preprod.destroy.tfplan"
-
+## Terraform Commands-
+```
 
 PREPROD -
 terraform init -backend=true \
