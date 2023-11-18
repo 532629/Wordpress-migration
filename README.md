@@ -1,15 +1,16 @@
 # WP Migration
 
-Wordpress Application is core tools for organization's marketing teams, pre-salse teams which needs to be available 24 by 7. As I wee, Now a day, multiple organizations migrating their Wordpress applications from On-Prem to cloud, Public Hosting services company hosted cloud servers.
-This migration process is tedious process and a lot of time consuming. Here, I have done wp migration process automatically, starting from creating a cloud resources, installation of required runtimes (software packages,webservers, extensions etc...), configuration of wordpress servers, Database servers etc...
+Wordpress Application is core application for organization's marketing and pre-salse teams which needs to be available 24 by 7. As I see, Now a day, multiple organizations migrating their Wordpress applications from On-Prem to cloud, Public Hosting services company to company's hosted cloud servers.
+This migration process is tedious and repeatative process, hence required a lot of time. Here, I have done wordpressp migration process automatically, starting from creating a cloud resources, installation of required runtimes (software packages,webservers, extensions etc...), configuration of wordpress servers, Database servers etc...
 
 I have migrated 100's of small, mid and big sizes of  wordpress applications and sharing my learnings and experience here.
 
 I have used following tools for this orchestrations.
 
-1. Terraform scripts - For creating the Azure cloud resources. (Can change this scripts for other cloud services - Google Cloud, AWS, Openstack etc...)
+1. Terraform scripts - For creating the Azure cloud resources. (Can change this scripts for other cloud services like - Google Cloud (GCP), AWS, Openstack etc...)
 2. Ansible scripts - For configuration managements.
- 
+3. Wordpress All-in-plugings
+     
 Using these orchestration scripts, wordpress administrator can migrate any wordpress application with in just 30 minutes which may tooks weeks or so...
 
 ## Getting started
@@ -47,35 +48,6 @@ Use the built-in continuous integration in GitLab.
 - [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
 
 ***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
 ## Roadmap
 If you have ideas for releases in the future, it is a good idea to list them in the README.
 
@@ -89,11 +61,18 @@ You can also document commands to lint the code or run tests. These steps help t
 ## Authors and acknowledgment
 Show your appreciation to those who have contributed to the project.
 
-## License
-For open source projects, say how it is licensed.
+## Scripts need to be execute in following orders
+- [ ] Run the Terraform script (It will create the required Azure cloud infrastructure)
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+```
+cd terraform.
+Please refer the README file for commands.
+```
 
-##Ansible command
-ansible-playbook playbook.yml -l wpserver-preprod -u wp --extra-vars "variable_file=preprod"  -vvv
+- [ ] Run the Ansible script ( It will install of required runtimes - software packages, webservers, extensions etc.., configure the wordpress servers, apache web server, Database servers etc...
+
+```
+cd ansible/ansible-playbooks/wordpress-lamp_ubuntu1804
+Please refer the README file for commands.
+
+```
