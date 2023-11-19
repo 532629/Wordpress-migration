@@ -105,10 +105,11 @@ Installed All-in-One WP Migration Plugin
 <img width="696" alt="image" src="https://github.com/532629/Wordpress-migration/assets/24932804/ff9e8b1a-d9e3-4df8-8591-6f092a8bf50a">
 
 ## Custom changes (based on business senarios - if wordpress backup file is large)
-
+```
 By default, wordpress application doesn't support to import large file. Do following changes to import large file. Here, I change it to 3072M to import file size of 3GB.
- 
+
 /srv/www/wordpress/.htaccess
+
 # BEGIN WordPress
 # The directives (lines) between "BEGIN WordPress" and "END WordPress" are
 # dynamically generated, and should only be modified via WordPress filters.
@@ -129,7 +130,9 @@ php_value memory_limit 3584M
 php_value max_execution_time 300
 php_value max_input_time 300
 # END WordPress
- 
+
+```
+
 ## Import the back of Wordpress Application
 
 ```
