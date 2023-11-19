@@ -77,18 +77,25 @@ Please refer the README file for commands.
 
 ```
 ## Configure WordPress - New WordPress Web Site (say it, ggwordpress)
+```
 Open the web browser and hit the url - http://<server-ip-address>/wp-admin/install.php
 Select Language (Say- English)
 Click on continue
 
+```
 <img width="361" alt="image" src="https://github.com/532629/Wordpress-migration/assets/24932804/2bb55f89-d2f7-4c8a-a65a-36459a2b14cf">
 
-<img width="360" alt="image" src="https://github.com/532629/Wordpress-migration/assets/24932804/85afbed8-e7eb-45b9-928f-9d2eb28677f0">
 
+```
 Create username and password for new wordpress application and click on Install wordpress
 
+```
 ## Login to WordPress admin portal - 
+
+```
 http://<ip-address>/wp-login.php
+
+```
 
 <img width="697" alt="image" src="https://github.com/532629/Wordpress-migration/assets/24932804/c5b67d11-5494-4d28-81b8-babbbeba1289">
 
