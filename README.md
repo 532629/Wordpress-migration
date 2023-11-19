@@ -87,9 +87,6 @@ Click on continue
 
 Create username and password for new wordpress application and click on Install wordpress
 
-<img width="691" alt="image" src="https://github.com/532629/Wordpress-migration/assets/24932804/a8e64581-7b83-4cb5-8060-f2a054b0a450">
-
-
 ## Login to WordPress admin portal - 
 http://<ip-address>/wp-login.php
 
