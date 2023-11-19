@@ -76,3 +76,73 @@ cd ansible/ansible-playbooks/wordpress-lamp_ubuntu1804
 Please refer the README file for commands.
 
 ```
+## Configure WordPress - New WordPress Web Site (say it, ggwordpress)
+Open the web browser and hit the url - http://<server-ip-address>/wp-admin/install.php
+Select Language (Say- English)
+Click on continue
+
+<img width="361" alt="image" src="https://github.com/532629/Wordpress-migration/assets/24932804/2bb55f89-d2f7-4c8a-a65a-36459a2b14cf">
+
+<img width="360" alt="image" src="https://github.com/532629/Wordpress-migration/assets/24932804/85afbed8-e7eb-45b9-928f-9d2eb28677f0">
+
+Create username and password for new wordpress application and click on Install wordpress
+
+<img width="691" alt="image" src="https://github.com/532629/Wordpress-migration/assets/24932804/a8e64581-7b83-4cb5-8060-f2a054b0a450">
+
+
+## Login to WordPress admin portal - 
+http://<ip-address>/wp-login.php
+
+<img width="697" alt="image" src="https://github.com/532629/Wordpress-migration/assets/24932804/c5b67d11-5494-4d28-81b8-babbbeba1289">
+
+```
+Installed All-in-One WP Migration Plugin
+```
+<img width="696" alt="image" src="https://github.com/532629/Wordpress-migration/assets/24932804/ff9e8b1a-d9e3-4df8-8591-6f092a8bf50a">
+
+## Custom changes (based on business senarios - if wordpress backup file is large)
+
+By default, wordpress application doesn't support to import large file. Do following changes to import large file. Here, I change it to 3072M to import file size of 3GB.
+ 
+/srv/www/wordpress/.htaccess
+# BEGIN WordPress
+# The directives (lines) between "BEGIN WordPress" and "END WordPress" are
+# dynamically generated, and should only be modified via WordPress filters.
+# Any changes to the directives between these markers will be overwritten.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+ 
+php_value upload_max_filesize 3072M
+php_value post_max_size 3072M
+php_value memory_limit 3584M
+php_value max_execution_time 300
+php_value max_input_time 300
+# END WordPress
+ 
+## Import the back of Wordpress Application
+
+```
+Navigate to All-in-One WP Migration --> Import --> Import from File
+Select the file backup file
+```
+<img width="911" alt="image" src="https://github.com/532629/Wordpress-migration/assets/24932804/33740a18-e74d-4257-b56d-08fe78d7dfa9">
+
+<img width="914" alt="image" src="https://github.com/532629/Wordpress-migration/assets/24932804/e6eee0df-a5b9-487e-b7be-8f24d0bbcdc0">
+
+## Happy Migration of your Wordpress Application
+
+
+
+
+
+
+
+
+
