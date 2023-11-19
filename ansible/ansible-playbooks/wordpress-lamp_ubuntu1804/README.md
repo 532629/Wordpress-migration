@@ -1,6 +1,6 @@
 # Wordpress on Ubuntu 18.04 LAMP
 
-This playbook will install a WordPress website on top of a LAMP environment (**L**inux, **A**pache, **M**ySQL and **P**HP) on an Ubuntu 18.04 machine, as explained in the guide on [How to Use Ansible to Set Up Wordpress on Ubuntu 18.04 LAMP](https://www.digitalocean.com/community/tutorials/how-to-use-ansible-to-install-and-set-up-wordpress-with-lamp-on-ubuntu-18-04). A virtualhost will be created with the options specified in the `vars/default.yml` variable file.
+This playbook will install a WordPress website on top of a LAMP environment (**L**inux, **A**pache, **M**ySQL and **P**HP) on an Ubuntu 18.04 machine.A virtualhost will be created with the options specified in the `vars/<environmnet-file>.yml` variable file.
 
 ## Settings
 
@@ -13,20 +13,40 @@ This playbook will install a WordPress website on top of a LAMP environment (**L
 - `http_conf`: The name of the configuration file that will be created within Apache.
 - `http_port`: HTTP port for this virtual host, where `80` is the default. 
 
+## Playbook Structure
+
+```
+Wordpress,LAMP (Linux, Apache, MySQL and PHP) stacks installation on ubuntu1804
+wordpress-lamp_ubuntu1804
+├── files
+│   ├── apache.conf.j2
+│   └── nwp-config.php.j2
+├── vars
+│   └── default.yml
+├── playbook.yml
+└── readme.md
+
+- `files/`: directory containing templates and other files required by the playbook.
+- `vars/`: directory to save variable files. A `default.yml` var file is included by default.
+- `playbook.yml`: the playbook file.
+- `readme.md`: instructions and links related to this playbook.
+
+```
+
 ## Running this Playbook
 
 Quickstart guide for those already familiar with Ansible:
 
 ### 1. Obtain the playbook
 ```shell
-git clone https://github.com/do-community/ansible-playbooks.git
-cd ansible-playbooks/wordpress-lamp_ubuntu1804
+https://github.com/532629/Wordpress-migration.git
+cd ansible/ansible-playbooks/wordpress-lamp_ubuntu1804
 ```
 
 ### 2. Customize Options
 
 ```shell
-nano vars/default.yml
+vi vars/default.yml
 ```
 
 ```yml
@@ -49,7 +69,112 @@ http_port: "80"
 ### 3. Run the Playbook
 
 ```command
-ansible-playbook -l [target] -i [inventory file] -u [remote user] playbook.yml
+NB - Passing the environment variable file to ansible-playbook using "extra-vars"
+ansible-playbook  playbook.yml -l [target] -i [inventory file] -u [remote user] 
+ansible-playbook playbook.yml -l wpserver-preprod -u wp --extra-vars "variable_file=preprod"  -vvv
+```
+``` 
+PLAY [all] ***********************************************************************************************************************************************************************************************************
+ 
+TASK [Gathering Facts] ***********************************************************************************************************************************************************************************************
+ok: [prod]
+ 
+TASK [Install prerequisites] *****************************************************************************************************************************************************************************************
+changed: [prod]
+ 
+TASK [Install LAMP Packages] *****************************************************************************************************************************************************************************************
+changed: [prod] => (item=apache2)
+changed: [prod] => (item=mysql-server)
+changed: [prod] => (item=python3-pymysql)
+changed: [prod] => (item=php)
+changed: [prod] => (item=php-mysql)
+changed: [prod] => (item=libapache2-mod-php)
+ 
+TASK [Install PHP Extensions] ****************************************************************************************************************************************************************************************
+changed: [prod] => (item=php-curl)
+changed: [prod] => (item=php-gd)
+changed: [prod] => (item=php-mbstring)
+changed: [prod] => (item=php-xml)
+changed: [prod] => (item=php-xmlrpc)
+changed: [prod] => (item=php-soap)
+changed: [prod] => (item=php-intl)
+changed: [prod] => (item=php-zip)
+changed: [prod] => (item=php-bcmath)
+changed: [prod] => (item=php-imagick)
+changed: [prod] => (item=php-json)
+ 
+TASK [Create document root] ******************************************************************************************************************************************************************************************
+changed: [prod]
+ 
+TASK [Set up Apache VirtualHost] *************************************************************************************************************************************************************************************
+changed: [prod]
+ 
+TASK [Enable rewrite module] *****************************************************************************************************************************************************************************************
+changed: [prod]
+ 
+TASK [Enable new site] ***********************************************************************************************************************************************************************************************
+changed: [prod]
+ 
+TASK [Disable default Apache site] ***********************************************************************************************************************************************************************************
+changed: [prod]
+ 
+TASK [Set the root password] *****************************************************************************************************************************************************************************************
+changed: [prod]
+ 
+TASK [Remove all anonymous user accounts] ****************************************************************************************************************************************************************************
+ok: [prod]
+ 
+TASK [Remove the MySQL test database] ********************************************************************************************************************************************************************************
+ok: [prod]
+ 
+TASK [Creates database for WordPress] ********************************************************************************************************************************************************************************
+changed: [prod]
+ 
+TASK [Create MySQL user for WordPress] *******************************************************************************************************************************************************************************
+changed: [prod]
+ 
+TASK [UFW - Allow HTTP on port 80] ***********************************************************************************************************************************************************************************
+changed: [prod]
+ 
+TASK [Download and unpack latest WordPress] **************************************************************************************************************************************************************************
+changed: [prod]
+ 
+TASK [Set ownership] *************************************************************************************************************************************************************************************************
+changed: [prod]
+ 
+TASK [Set permissions for directories] *******************************************************************************************************************************************************************************
+changed: [prod]
+ 
+TASK [Set permissions for files] *************************************************************************************************************************************************************************************
+changed: [prod]
+ 
+TASK [Set up wp-config] **********************************************************************************************************************************************************************************************
+changed: [prod]
+ 
+RUNNING HANDLER [Reload Apache] **************************************************************************************************************************************************************************************
+changed: [prod]
+ 
+RUNNING HANDLER [Restart Apache] *************************************************************************************************************************************************************************************
+changed: [prod]
+ 
+PLAY RECAP ***********************************************************************************************************************************************************************************************************
+prod                       : ok=22   changed=19   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
 ```
 
-For more information on how to run this Ansible setup, please check this guide: [How to Use Ansible to Install and Set Up WordPress with LAMP on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-use-ansible-to-install-and-set-up-wordpress-with-lamp-on-ubuntu-18-04).
+## Running this playbook will perform the following actions on your Ansible hosts:
+
+- Install aptitude, which is preferred by Ansible as an alternative to the apt package manager.
+- Install the required LAMP packages and PHP extensions.
+- Create and enable a new Apache VirtualHost for the WordPress website.
+- Enable the Apache rewrite (mod_rewrite) module.
+- Disable the default Apache website.
+- Set the password for the MySQL root user.
+- Remove anonymous MySQL accounts and the test database.
+- Create a new MySQL database and user for the WordPress website.
+- Set up UFW to allow HTTP traffic on the configured port (80 by default).
+- Download and unpack WordPress.
+- Set up correct directory ownership and permissions.
+- Set up the wp-config.php file using the provided template.
+
+
